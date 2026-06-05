@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+  <title>餐饮差评管理机器人 · 智能拯救口碑</title>
+  <meta name="description" content="专为餐饮品牌打造的AI差评管理机器人，自动识别、分析、回复差评，3秒生成安抚方案，守护餐厅星级评分。">
+  <meta name="keywords" content="餐饮差评管理, 差评机器人, 餐厅口碑, AI客服, 餐饮SaaS">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="餐饮差评管理机器人 · 智能拯救口碑">
+  <meta property="og:description" content="专为餐饮品牌打造的AI差评管理机器人，自动识别、分析、回复差评，3秒生成安抚方案。">
+  <meta property="og:type" content="website">
+  <style>
+    /* reset & base */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f9faff;
+      color: #1e1e2f;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+    img, svg {
+      display: block;
+      max-width: 100%;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    /* 紫色渐变主色调 */
+    .gradient-bg {
+      background: linear-gradient(145deg, #7b3fe4 0%, #9b5cf6 60%, #b57aff 100%);
+    }
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      letter-spacing: -0.02em;
+    }
+    .section-title span {
+      background: linear-gradient(135deg, #7b3fe4, #b57aff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    /* CTA 按钮红色 */
+    .btn-primary {
+      display: inline-block;
+      background: #e53e3e;
+      background: linear-gradient(135deg, #e53e3e 0%, #c53030 100%);
+      color: #fff;
+      font-weight: 700;
+      padding: 16px 40px;
+      border-radius: 60px;
+      font-size: 1.125rem;
+      box-shadow: 0 12px 24px -8px rgba(229, 62, 62, 0.4);
+      transition: all 0.25s ease;
+      border: none;
+      cursor: pointer;
+      text-align: center;
+    }
+    .btn-primary:hover {
+      transform: scale(1.02);
+      box-shadow: 0 16px 32px -6px rgba(229, 62, 62, 0.5);
+    }
+    .btn-secondary {
+      display: inline-block;
+      background: white;
+      color: #7b3fe4;
+      font-weight: 600;
+      padding: 14px 34px;
+      border-radius: 60px;
+      font-size: 1rem;
+      box-shadow: 0 6px 14px rgba(123, 63, 228, 0.15);
+      transition: all 0.2s;
+      border: 1px solid #e9dfff;
+    }
+    .btn-secondary:hover {
+      background: #f5eeff;
+      border-color: #b57aff;
+    }
+    /* header / hero */
+    .hero {
+      padding: 60px 0 80px;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -10%;
+      right: -10%;
+      width: 400px;
+      height: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero .container {
+      position: relative;
+      z-index: 2;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(4px);
+      padding: 6px 18px;
+      border-radius: 40px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      margin-bottom: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+    }
+    .hero h1 {
+      font-size: 3.2rem;
+      font-weight: 800;
+      line-height: 1.2;
+      max-width: 800px;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      max-width: 600px;
+      opacity: 0.92;
+      margin-bottom: 36px;
+      font-weight: 400;
+    }
+    .hero-cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+    }
+    .hero .btn-primary {
+      background: #e53e3e;
+      box-shadow: 0 12px 24px -6px rgba(229, 62, 62, 0.5);
+    }
+    .hero .btn-secondary {
+      background: rgba(255, 255, 255, 0.15);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+    }
+    .hero .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+    /* 功能介绍 6卡片 */
+    .features {
+      padding: 80px 0 70px;
+      background: #ffffff;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    .feature-card {
+      background: #f8f5ff;
+      border-radius: 28px;
+      padding: 32px 24px;
+      transition: all 0.2s;
+      border: 1px solid #ede6ff;
+      box-shadow: 0 6px 12px rgba(123, 63, 228, 0.04);
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: #c9b3ff;
+      box-shadow: 0 18px 30px -8px rgba(123, 63, 228, 0.12);
+    }
+    .feature-icon {
+      background: linear-gradient(135deg, #7b3fe4, #b57aff);
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      color: white;
+      font-size: 1.8rem;
+    }
+    .feature-card h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .feature-card p {
+      color: #3f3f5c;
+      font-size: 0.95rem;
+    }
+    /* 定价 */
+    .pricing {
+      padding: 80px 0;
+      background: #f5f0ff;
+    }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 30px;
+      align-items: start;
+    }
+    .pricing-card {
+      background: white;
+      border-radius: 32px;
+      padding: 36px 28px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s;
+      border: 1px solid #e3d6ff;
+      text-align: center;
+    }
+    .pricing-card.featured {
+      border: 2px solid #7b3fe4;
+      background: white;
+      transform: scale(1.02);
+      box-shadow: 0 20px 40px -12px rgba(123, 63, 228, 0.25);
+    }
+    .pricing-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .pricing-card .price {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: #1e1e2f;
+      margin: 16px 0 6px;
+    }
+    .pricing-card .price small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #6b6b82;
+    }
+    .pricing-card .desc {
+      color: #4a4a66;
+      margin-bottom: 24px;
+      min-height: 48px;
+    }
+    .pricing-card ul {
+      list-style: none;
+      text-align: left;
+      margin: 20px 0 28px;
+    }
+    .pricing-card li {
+      padding: 8px 0;
+      border-bottom: 1px solid #f0ebff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pricing-card li::before {
+      content: "✓";
+      color: #7b3fe4;
+      font-weight: 700;
+      width: 20px;
+    }
+    .pricing-card .btn-primary {
+      width: 100%;
+      padding: 14px 0;
+      background: #7b3fe4;
+      background: linear-gradient(135deg, #7b3fe4, #9b5cf6);
+      box-shadow: 0 8px 18px rgba(123, 63, 228, 0.3);
+    }
+    .pricing-card.featured .btn-primary {
+      background: #e53e3e;
+      background: linear-gradient(135deg, #e53e3e, #c53030);
+      box-shadow: 0 8px 18px rgba(229, 62, 62, 0.4);
+    }
+    .pricing-card .btn-secondary {
+      width: 100%;
+      padding: 14px 0;
+    }
+    /* 案例展示 10个 */
+    .cases {
+      padding: 80px 0;
+      background: white;
+    }
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 20px;
+    }
+    .case-item {
+      background: #faf8ff;
+      padding: 20px 16px;
+      border-radius: 24px;
+      text-align: center;
+      border: 1px solid #ede4ff;
+      transition: 0.15s;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .case-item:hover {
+      background: #f2ebff;
+      border-color: #c9b3ff;
+    }
+    .case-item .emoji-big {
+      font-size: 2.8rem;
+      margin-bottom: 8px;
+    }
+    .case-item h4 {
+      font-weight: 700;
+      font-size: 1.05rem;
+      margin-bottom: 4px;
+    }
+    .case-item .stars {
+      color: #f5b342;
+      letter-spacing: 2px;
+      font-size: 1.1rem;
+    }
+    .case-item .tag {
+      background: #e6dcff;
+      color: #5a3d9b;
+      font-size: 0.7rem;
+      padding: 3px 12px;
+      border-radius: 40px;
+      display: inline-block;
+      margin-top: 6px;
+      font-weight: 600;
+    }
+    /* 底部CTA */
+    .cta-bottom {
+      padding: 80px 0;
+      background: linear-gradient(145deg, #7b3fe4, #9b5cf6);
+      color: white;
+      text-align: center;
+    }
+    .cta-bottom h2 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+    .cta-bottom p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      max-width: 600px;
+      margin: 0 auto 36px;
+    }
+    .cta-bottom .btn-primary {
+      background: #e53e3e;
+      box-shadow: 0 12px 28px -6px rgba(229, 62, 62, 0.45);
+      font-size: 1.2rem;
+      padding: 18px 56px;
+    }
+    /* footer */
+    .footer {
+      background: #1a1726;
+      color: #bdb3d9;
+      padding: 36px 0;
+      font-size: 0.9rem;
+    }
+    .footer .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+    .footer a {
+      color: #c9bbf0;
+      margin-left: 20px;
+    }
+    .footer a:hover {
+      color: white;
+    }
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+      .hero p {
+        font-size: 1.05rem;
+      }
+      .section-title {
+        font-size: 1.7rem;
+      }
+      .pricing-card.featured {
+        transform: scale(1);
+      }
+      .footer .container {
+        flex-direction: column;
+        text-align: center;
+      }
+      .footer a {
+        margin: 0 10px;
+      }
+    }
+    @media (max-width: 480px) {
+      .hero {
+        padding: 40px 0 60px;
+      }
+      .hero h1 {
+        font-size: 1.9rem;
+      }
+      .btn-primary {
+        padding: 14px 28px;
+        font-size: 1rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .cases-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Hero -->
+  <header class="hero gradient-bg">
+    <div class="container">
+      <div class="hero-badge">🔥 餐饮口碑守护者 · AI 实时差评管理</div>
+      <h1>差评秒级响应，<br>星级不再暴跌</h1>
+      <p>餐饮差评管理机器人 — 自动识别差评、分析情绪、生成安抚话术，3秒内回复，守护每一条评价。</p>
+      <div class="hero-cta">
+        <a href="#" class="btn-primary">免费试用14天 →</a>
+        <a href="#" class="btn-secondary">预约演示</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 功能介绍 6卡片 -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="section-title"><span>⚡ 智能差评管理 · 六重核心能力</span></h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3>自动差评识别</h3>
+          <p>7×24小时监控主流平台差评，AI 语义分析精准识别情绪，不漏掉任何一条负面反馈。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💬</div>
+          <h3>智能回复生成</h3>
+          <p>基于餐厅风格与差评内容，3秒生成个性化安抚话术，语气自然，降低客户怒气。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>口碑趋势分析</h3>
+          <p>自动汇总差评关键词，生成周/月报告，帮你快速定位菜品、服务、环境短板。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔔</div>
+          <h3>实时预警推送</h3>
+          <p>差评出现即刻推送至店长群，支持企业微信、钉钉、短信，不遗漏任何危机。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧠</div>
+          <h3>情感分析引擎</h3>
+          <p>深度学习模型判断愤怒、失望、调侃等情绪，分级处理，高怒火差评优先响应。</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚙️</div>
+          <h3>多平台接入</h3>
+          <p>美团、大众点评、饿了么、小红书、抖音团购，一个后台管理所有差评。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 定价 3档 -->
+  <section class="pricing" id="pricing">
+    <div class="container">
+      <h2 class="section-title"><span>💎 灵活定价 · 从小店到连锁</span></h2>
+      <div class="pricing-grid">
+        <!-- 免费版 -->
+        <div class="pricing-card">
+          <h3>免费版</h3>
+          <div class="price">¥0 <small>/月</small></div>
+          <div class="desc">适合月评价量 &lt; 50 条的小店</div>
+          <ul>
+            <li>1 个平台接入</li>
+            <li>每日 20 次智能回复</li>
+            <li>基础差评通知</li>
+            <li>周报摘要</li>
+          </ul>
+          <a href="#" class="btn-secondary">立即开始</a>
+        </div>
+        <!-- 专业版 99元 推荐 -->
+        <div class="pricing-card featured">
+          <h3>专业版</h3>
+          <div class="price">¥99 <small>/月</small></div>
+          <div class="desc">最受欢迎 · 月评价量 &lt; 500 条</div>
+          <ul>
+            <li>3 个平台接入</li>
+            <li>无限智能回复</li>
+            <li>实时预警 (企微/钉钉)</li>
+            <li>情感分析 + 趋势报告</li>
+            <li>专属客服</li>
+          </ul>
+          <a href="#" class="btn-primary">马上订阅</a>
+        </div>
+        <!-- 企业版 -->
+        <div class="pricing-card">
+          <h3>企业版</h3>
+          <div class="price">定制 <small>/月</small></div>
+          <div class="desc">连锁餐饮、多门店管理</div>
+          <ul>
+            <li>全平台接入</li>
+            <li>无限门店 & 评价</li>
+            <li>高级分析 + 舆情监控</li>
+            <li>API 对接 / 私有部署</li>
+            <li>客户成功经理</li>
+          </ul>
+          <a href="#" class="btn-secondary">联系顾问</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10个案例展示 -->
+  <section class="cases" id="cases">
+    <div class="container">
+      <h2 class="section-title"><span>🏆 真实餐厅信赖 · 口碑逆袭案例</span></h2>
+      <div class="cases-grid">
+        <div class="case-item"><div class="emoji-big">🌶️</div><h4>辣味轩</h4><div class="stars">★★★★☆</div><span class="tag">成都川菜</span></div>
+        <div class="case-item"><div class="emoji-big">🫕</div><h4>老码头火锅</h4><div class="stars">★★★★★</div><span class="tag">北京火锅</span></div>
+        <div class="case-item"><div class="emoji-big">🌶️</div><h4>山城辣妹子</h4><div class="stars">★★★★☆</div><span class="tag">上海火锅</span></div>
+        <div class="case-item"><div class="emoji-big">🍣</div><h4>鮨之魂</h4><div class="stars">★★★★★</div><span class="tag">深圳日料</span></div>
+        <div class="case-item"><div class="emoji-big">🍢</div><h4>炭火江湖</h4><div class="stars">★★★★☆</div><span class="tag">广州烧烤</span></div>
+        <div class="case-item"><div class="emoji-big">🍔</div><h4>速食侠</h4><div class="stars">★★★☆☆</div><span class="tag">杭州快餐</span></div>
+        <div class="case-item"><div class="emoji-big">🥩</div><h4>牛排工坊</h4><div class="stars">★★★★★</div><span class="tag">南京西餐</span></div>
+        <div class="case-item"><div class="emoji-big">🥐</div><h4>甜蜜工坊</h4><div class="stars">★★★★☆</div><span class="tag">武汉面包</span></div>
+        <div class="case-item"><div class="emoji-big">🧋</div><h4>茶颜悦色仿</h4><div class="stars">★★★★☆</div><span class="tag">长沙奶茶</span></div>
+        <div class="case-item"><div class="emoji-big">🌶️</div><h4>蜀香阁</h4><div class="stars">★★★★★</div><span class="tag">重庆川菜</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 底部CTA -->
+  <section class="cta-bottom">
+    <div class="container">
+      <h2>别让一条差评毁掉百条好评</h2>
+      <p>每天有超过 2,000 家餐厅使用差评机器人，平均评分提升 0.3 星。立即免费试用，14天无风险体验。</p>
+      <a href="#" class="btn-primary">🔥 免费试用14天</a>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <div class="container">
+      <span>© 2025 餐饮差评管理机器人 · 口碑守护者</span>
+      <div>
+        <a href="#">隐私政策</a>
+        <a href="#">服务条款</a>
+        <a href="#">帮助中心</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
