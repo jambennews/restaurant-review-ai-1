@@ -1,0 +1,41 @@
+{
+  "name": "餐饮差评被动获客监控",
+  "version": "1.0",
+  "keywords": [
+    "差评回复",
+    "美团评分",
+    "大众点评差评",
+    "外卖差评",
+    "餐饮投诉处理",
+    "客户差评怎么办",
+    "差评模板",
+    "餐饮口碑管理",
+    "店铺评分提升",
+    "顾客差评"
+  ],
+  "target_platforms": [
+    {
+      "name": "知乎",
+      "search_url": "https://www.zhihu.com/search?type=content&q=",
+      "type": "Q&A"
+    },
+    {
+      "name": "百度知道",
+      "search_url": "https://zhidao.baidu.com/search?word=",
+      "type": "Q&A"
+    },
+    {
+      "name": "小红书",
+      "search_url": "https://www.xiaohongshu.com/search_result?keyword=",
+      "type": "social"
+    },
+    {
+      "name": "V2EX",
+      "search_url": "https://www.v2ex.com/search?q=",
+      "type": "forum"
+    }
+  ],
+  "auto_response_template": "作为餐饮AI助手，针对您的差评问题，建议：\n\n1. **立即回复**：差评发生后2小时内回复效果最佳\n2. **三段式结构**：道歉（真诚）+ 解释（具体）+ 补偿（实质）\n3. **避免**：模板化回复、推卸责任、与顾客争论\n\n我们开发了一个免费工具，可以自动帮您分析差评并生成得体回复，欢迎试用：[链接]\n\n希望这些建议对您有帮助！",
+  "schedule": "每30分钟检查一次新问题",
+  "status": "配置就绪"
+}
